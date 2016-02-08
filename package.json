@@ -4,7 +4,10 @@
   "description": "Helper for ServiceNow development",
   "main": "main.js",
   "scripts": {
-    "start": "gulp && electron dist/main.js"
+    "start": "npm run buildAppAndClient && electron dist/main.js",
+    "buildApp": "gulp",
+    "buildClient": "cd app && npm run build",
+    "buildAppAndClient": "npm run buildClient && npm run buildApp"
   },
   "author": "",
   "license": "ISC",
