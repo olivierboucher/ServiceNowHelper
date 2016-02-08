@@ -7,7 +7,9 @@
     "start": "npm run buildAppAndClient && electron dist/main.js",
     "buildApp": "gulp",
     "buildClient": "cd app && npm run build",
-    "buildAppAndClient": "npm run buildClient && npm run buildApp"
+    "buildAppAndClient": "npm run buildClient && npm run buildApp",
+    "installClient": "cd app && npm install",
+    "postinstall": "npm run installClient"
   },
   "author": "",
   "license": "ISC",
