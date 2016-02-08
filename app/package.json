@@ -1,13 +1,13 @@
 {
   "name": "servicenowhelper-frontend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Frontend for ServiceNowHelper app",
   "main": "index.js",
   "scripts": {
     "build": "webpack"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Olivier Boucher <info@olivierboucher.com>",
+  "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.5.1",
     "babel-loader": "^6.2.2",
@@ -24,6 +24,7 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.12.13"
   },
+  "repository": "https://github.com/OlivierBoucher/ServiceNowHelper",
   "dependencies": {
     "angular": "^1.5.0",
     "angular-ui-router": "^0.2.18"
