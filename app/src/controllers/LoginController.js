@@ -2,7 +2,6 @@ class LoginController {
 
     constructor($scope) {
 
-        this.$inject = ['$scope'];
     }
 }
 
