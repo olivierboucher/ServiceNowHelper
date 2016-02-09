@@ -1,14 +1,9 @@
-import IndexMain from './views/index.main.html'
+Routing.$inject = ['$routeProvider'];
 
-
-Routing.$inject = ['$stateProvider'];
-
-export default function Routing($stateProvider) {
-    $stateProvider
-        .state('index', {
-            url: "",
-            template: IndexMain,
-            controller: 'LoginController',
-            controllerAs: 'login'
-        })
+export default function Routing($routeProvider) {
+    $routeProvider
+        .when('/', {
+            templateUrl: 'app/src/views/index.main.html',
+            controller: 'LoginController'
+        });
 }
