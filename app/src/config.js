@@ -1,9 +1,12 @@
+import IndexMain from './views/index.main.html'
+
+
 Routing.$inject = ['$routeProvider'];
 
 export default function Routing($routeProvider) {
     $routeProvider
         .when('/', {
-            templateUrl: 'app/src/views/index.main.html',
+            template: IndexMain,
             controller: 'LoginController'
         });
 }
