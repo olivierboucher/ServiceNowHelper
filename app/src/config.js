@@ -19,7 +19,7 @@ export default function Routing($routeProvider) {
             template: Logs,
             controller:'MainPageController',
             resolve: {
-                access: ["AuthService", (AuthService) => AuthService.IsLoggedIn() ],
+                access: ["AuthService", function(AuthService) { console.log(AuthService); AuthService.IsLoggedIn();} ],
             }
         });
 

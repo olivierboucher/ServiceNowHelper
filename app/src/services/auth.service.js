@@ -13,8 +13,8 @@ class AuthService {
     }
 
     static AuthFactory($http) {
-        return function (credentials) {
-            return new AuthService($http, credentials);
+        return function () {
+            return new AuthService($http);
         }
     }
     
