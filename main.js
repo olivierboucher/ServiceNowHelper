@@ -1,11 +1,8 @@
-//import Electron from 'electron'
-//import { client as Client } from 'electron-connect'
+var electron = require('electron');
+var client = require('electron-connect').client;
 
-var Electron = require('electron');
-var Client = require('electron-connect').client;
-
-const Application = Electron.app;
-const BrowserWindow = Electron.BrowserWindow;
+const application = electron.app;
+const BrowserWindow = electron.BrowserWindow;
 
 var mainWindow;
 
@@ -18,18 +15,18 @@ function createMainWindow() {
     });
 }
 
-Application.on('ready', function() {
+application.on('ready', function() {
     createMainWindow();
-    Client.create(mainWindow);
+    client.create(mainWindow);
 });
 
-Application.on('window-all-closed', function(){
+application.on('window-all-closed', function(){
     if (process.platform !== 'darwin') {
-        Application.quit();
+        application.quit();
     }
 });
 
-Application.on('activate', function(){
+application.on('activate', function(){
     if(mainWindow === null){
         createMainWindow();
     }
