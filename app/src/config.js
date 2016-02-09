@@ -7,20 +7,15 @@ Routing.$inject = ['$routeProvider'];
 
 export default function Routing($routeProvider) {
     $routeProvider
-        .when('/', {
-            template: IndexMain,
-            controller: 'LoginController'
-        })
-        .when('/login', {
-            template: LoginMain,
-            controller: 'LoginController'
-        })
-        .when('/logs',{
+        .when('/',{
             template: Logs,
             controller:'MainPageController',
             resolve: {
                 access: ["AuthService", (AuthService) => new AuthService().IsLoggedIn() ]
             }
+        })
+        .when('/login', {
+            template: LoginMain,
+            controller: 'LoginController'
         });
-
 }
