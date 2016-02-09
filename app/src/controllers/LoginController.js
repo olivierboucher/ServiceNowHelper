@@ -1,10 +1,11 @@
 class LoginController {
 
-    /*@ngInject*/
     constructor($scope) {
 
         this.$inject = ['$scope'];
     }
 }
 
-register('app').controller('LoginController', LoginController);
+LoginController.$inject = ['$scope'];
+
+export default LoginController;
