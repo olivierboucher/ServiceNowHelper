@@ -17,5 +17,6 @@ export default function Routing($routeProvider) {
         .when('/login', {
             template: LoginMain,
             controller: 'LoginController'
-        });
+        })
+        .otherwise('/');
 }
