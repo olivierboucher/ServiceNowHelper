@@ -12,7 +12,7 @@ function createMainWindow() {
     mainWindow.webContents.openDevTools();
     mainWindow.on('closed', function() {
         mainWindow = null
-    });
+    }); 
 }
 
 application.on('ready', function() {

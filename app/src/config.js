@@ -15,9 +15,12 @@ export default function Routing($routeProvider) {
             template: LoginMain,
             controller: 'LoginController'
         })
-    .when('/logs',{
-        template: Logs,
-        controller:'MainPageController'
-    });
+        .when('/logs',{
+            template: Logs,
+            controller:'MainPageController',
+            resolve: {
+                access: ["AuthService", (AuthService) => AuthService.IsLoggedIn() ],
+            }
+        });
 
 }
