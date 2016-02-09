@@ -18,6 +18,7 @@ class AuthService {
 }
 
 AuthService.AuthFactory.$inject = ['$http'];
+//TODO: Add babel stage-0 for static vars and clean this, I don't care atm
 AuthService.AuthFactory.prototype.UNAUTHORIZED = 'UNAUTHORIZED';
 AuthService.AuthFactory.prototype.FORBIDDEN = 'FORBIDDEN';
 
