@@ -1,10 +1,9 @@
 class LoginController {
-
-    constructor($scope) {
+    constructor($scope,NowService) {
 
     }
 }
 
-LoginController.$inject = ['$scope'];
+LoginController.$inject = ['$scope', 'NowService'];
 
 export default LoginController;
