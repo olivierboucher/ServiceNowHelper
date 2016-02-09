@@ -16,13 +16,11 @@ var app = Angular.module('app', [Router])
 app.run(["$rootScope", "AuthService", "$location",
     function($rootScope, AuthService, $location) {
         $rootScope.$on("$routeChangeError", function(event, current, previous, rejection) {
-        if (rejection == AuthService.UNAUTHORIZED) {
-            $location.path("/login");
-        } 
-        else if (rejection == AuthService.FORBIDDEN) {
-            $location.path("/forbidden");
-        }
+            if (rejection == AuthService.UNAUTHORIZED) {
+                $location.path("/login");
+            }
+            else if (rejection == AuthService.FORBIDDEN) {
+                $location.path("/forbidden");
+            }
       });
 }]);
-
-
