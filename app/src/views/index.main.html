@@ -12,15 +12,20 @@
             </div>
         </ul>
     </div>
-    <div class="col-md-offset-3 col-md-9">
-        <h1>Logs</h1>
+    <div class="col-md-offset-3 col-md-9 logs-container">
 
-        <div class="list-group" ng-repeat="log in logs">
-            <a href="#" class="list-group-item active">
-                <h4 class="list-group-item-heading">{{log.message}}</h4>
+        <div class="logs-header">
+            <h2>Logs</h2>
+            filter:
+        </div>
+
+        <ul>
+            <li class="log-entry" ng-repeat="log in logs">
+                <h4 style="margin-bottom: 0" class="list-group-item-heading">{{log.message}}</h4>
 
                 <p class="list-group-item-text">{{log.sys_created_on}}</p>
-            </a>
-        </div>
+            </li>
+        </ul>
+
     </div>
 </div>
