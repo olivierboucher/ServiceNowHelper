@@ -28,11 +28,14 @@
   "repository": "https://github.com/OlivierBoucher/ServiceNowHelper",
   "dependencies": {
     "angular": "^1.5.0",
+    "angular-bootstrap-nav-tree": "^0.2.1",
     "angular-route": "^1.5.0",
     "bootstrap": "^3.3.6",
     "bootstrap-webpack": "0.0.5",
     "exports-loader": "^0.6.2",
     "extract-text-webpack-plugin": "^1.0.1",
+    "font-awesome": "^4.5.0",
+    "font-awesome-webpack": "0.0.4",
     "imports-loader": "^0.6.5"
   }
 }

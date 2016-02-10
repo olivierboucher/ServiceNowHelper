@@ -5,8 +5,9 @@ import LoginController from './controllers/login.controller';
 import MainPageController from './controllers/main.page.controller';
 import NowService from './services/now.service';
 import AuthService from './services/auth.service';
+import BootstrapNavTree from '../node_modules/angular-bootstrap-nav-tree/dist/abn_tree_directive';
 
-var app = Angular.module('app', [Router])
+var app = Angular.module('app', [Router, 'angularBootstrapNavTree'])
     .config(Config)
     .controller('LoginController', LoginController)
     .controller('MainPageController',MainPageController)

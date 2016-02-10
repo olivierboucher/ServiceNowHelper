@@ -1,5 +1,4 @@
-import IndexMain from './views/index.main.html'
-import Logs from './views/logs.html';
+import IndexMain from './views/index.main.html';
 import LoginMain from './views/login.main.html';
 
 
@@ -8,7 +7,7 @@ Routing.$inject = ['$routeProvider'];
 export default function Routing($routeProvider) {
     $routeProvider
         .when('/',{
-            template: Logs,
+            template: IndexMain,
             controller:'MainPageController',
             /*resolve: {
                 access: ["AuthService", (AuthService) => new AuthService().IsLoggedIn() ]
