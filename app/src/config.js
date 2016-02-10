@@ -10,9 +10,9 @@ export default function Routing($routeProvider) {
         .when('/',{
             template: Logs,
             controller:'MainPageController',
-            resolve: {
+            /*resolve: {
                 access: ["AuthService", (AuthService) => new AuthService().IsLoggedIn() ]
-            }
+            }*/
         })
         .when('/login', {
             template: LoginMain,

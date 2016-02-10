@@ -4,6 +4,7 @@ var webpack = require('webpack');
 module.exports = {
     entry: [
         "bootstrap-webpack!./bootstrap.config.js",
+        './src/styles/main.less',
         './src/app.js'
     ],
 
@@ -31,6 +32,7 @@ module.exports = {
                 test: /\.html$/,
                 loader: 'raw'
             },
+            { test: /\.less$/, loader: 'style!css!less'},
             { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,   loader: "url?limit=10000&minetype=application/font-woff" },
             { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,   loader: "url?limit=10000&minetype=application/font-woff" },
             { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,    loader: "url?limit=10000&minetype=application/octet-stream" },
