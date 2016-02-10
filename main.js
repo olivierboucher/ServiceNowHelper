@@ -8,7 +8,7 @@ var mainWindow;
 
 function createMainWindow() {
     mainWindow = new BrowserWindow({width: 1366, height: 768});
-    mainWindow.loadURL('file://' + __dirname + '/dist/index.html');
+    mainWindow.loadURL('file://' + __dirname + '/dist/index.html#/login');
     mainWindow.webContents.openDevTools();
     mainWindow.on('closed', function() {
         mainWindow = null

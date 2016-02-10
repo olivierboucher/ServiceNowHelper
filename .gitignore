@@ -3,3 +3,5 @@ node_modules
 *.iml
 dist/*
 !dist/index.html
+!dist/images
+.DS_Store
