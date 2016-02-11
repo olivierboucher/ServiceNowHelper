@@ -1,14 +1,56 @@
 class NowService {
-    constructor($http, credentials) {
+    constructor($http, AuthService) {
         this.$http = $http;
-        this.credentials = credentials;
+        this.auth = new AuthService();
     }
 
-    static NowFactory($http) {
-        return function (credentials) {
-            return new NowService($http, credentials);
+    static NowFactory($http, AuthService) {
+        return function () {
+            return new NowService($http, AuthService);
         }
     }
+
+    getApplicationsList() {
+        let config = this.auth.getAuthenticatedConfig();
+        config.method = 'GET';
+        config.url += '/api/now/table/sys_app';
+
+        return this.$http(config)
+    }
+
+    getTablesForApplication(scope) {
+        let config = this.auth.getAuthenticatedConfig();
+        config.method = 'GET';
+        config.url += '/api/now/table/sys_db_object';
+        config.params = {
+            'sys_parm_query': 'sys_scope.nameLIKE' + scope
+        };
+
+        return this.$http(config);
+    }
+
+    getColumnsForTable(table) {
+        let config = this.auth.getAuthenticatedConfig();
+        config.method = 'GET';
+        config.url += '/api/now/table/sys_dictionary';
+        config.params = {
+            'sys_parm_query': 'name%3D' + table
+        };
+
+        return this.$http(config);
+    }
+
+    getLogsStartingWith(startsWith) {
+        let config = this.auth.getAuthenticatedConfig();
+        config.method = 'GET';
+        config.url += '/api/now/table/syslog';
+        config.params = {
+            'sys_parm_query': 'GOTOmessageSTARTSWITH' + startsWith
+        };
+
+        return this.$http(config);
+    }
+
 
     GetLogs() {
         return {
@@ -233,6 +275,6 @@ class NowService {
     }
 }
 
-NowService.NowFactory.$inject = ['$http'];
+NowService.NowFactory.$inject = ['$http', 'AuthService'];
 
 export default NowService;
