@@ -14,48 +14,42 @@ class NowService {
 		return new Promise((resolve, reject) => {
 			this.getApplicationsList()
 				.then((applicationResponse) => {
-					console.log(applicationResponse);
-					let applications = applicationResponse.result;
-
+					let applications = applicationResponse.data.result;
 					applications.forEach((app) => {
-						console.log(app);
 						this.getTablesForApplication(app.scope)
 							.then((tablesResponse) => {
-								console.log(tablesResponse);
-								let tables = tablesResponse.result;
+								let tables = tablesResponse.data.result;
 								app.tablesTree = [];
 
 								tables.forEach((table, tableIndex) => {
-									console.log(table);
 									app.tablesTree[tableIndex] = {
-										//label: table.label, TODO: Find real property
+										label: table.label,
 										children: []
 									};
 
 									this.getColumnsForTable(table.name)
 										.then((columnsResponse) => {
-											let columns = columnsResponse.result;
-											columns.forEach((column) => {
-												app.tablesTree[tableIndex].children.push({
-													//label: column.label TODO: Find real property
+											let columns = columnsResponse.data.result;
+											columns
+                                                .filter((x) => x.column_label != '')
+                                                .forEach((column) => {
+                                                    console.log(column);
+												    app.tablesTree[tableIndex].children.push({
+													label: column.column_label //+ ' - ' + column.element
 												});
 											});
-
 										})
 										.catch((error) => {
 											console.log(error);
 											reject(error);
 										})
-
 								})
 							})
 							.catch((error) => {
 								console.log(error);
 								reject(error);
 							})
-
 					});
-
 					resolve(applications);
 				})
 				.catch((error) => {
@@ -78,7 +72,7 @@ class NowService {
         config.method = 'GET';
         config.url += '/api/now/table/sys_db_object';
         config.params = {
-            'sys_parm_query': 'sys_scope.nameLIKE' + scope
+            'sysparm_query': 'sys_scope.scope=' + scope
         };
 
         return this.$http(config);
@@ -89,7 +83,7 @@ class NowService {
         config.method = 'GET';
         config.url += '/api/now/table/sys_dictionary';
         config.params = {
-            'sys_parm_query': 'name%3D' + table
+            'sysparm_query': 'name=' + table
         };
 
         return this.$http(config);
@@ -100,7 +94,7 @@ class NowService {
         config.method = 'GET';
         config.url += '/api/now/table/syslog';
         config.params = {
-            'sys_parm_query': 'GOTOmessageSTARTSWITH' + startsWith
+            'sysparm_query': 'GOTOmessageSTARTSWITH' + startsWith
         };
 
         return this.$http(config);
@@ -176,158 +170,6 @@ class NowService {
         };
     }
 
-    GetTables(){
-        return {
-            "result": [
-                {
-                    "max_length": "32",
-                    "read_only": "false",
-                    "reference_qual_condition": "",
-                    "reference_type": "",
-                    "dependent_on_field": "",
-                    "calculation": "",
-                    "use_dynamic_default": "false",
-                    "sys_policy": "",
-                    "internal_type": {
-                        "link": "https://dev17826.service-now.com/api/now/table/sys_glide_object?name=GUID",
-                        "value": "GUID"
-                    },
-                    "spell_check": "false",
-                    "use_dependent_field": "false",
-                    "primary": "true",
-                    "choice_field": "",
-                    "defaultsort": "",
-                    "sys_update_name": "",
-                    "sys_mod_count": "0",
-                    "write_roles": "",
-                    "delete_roles": "",
-                    "element": "sys_id",
-                    "mandatory": "false",
-                    "sys_updated_on": "2016-02-02 13:32:57",
-                    "display": "false",
-                    "text_index": "false",
-                    "dynamic_default_value": "",
-                    "active": "true",
-                    "next_element": "",
-                    "foreign_database": "",
-                    "xml_view": "false",
-                    "array": "false",
-                    "virtual": "false",
-                    "choice_table": "",
-                    "column_label": "Sys ID",
-                    "create_roles": "",
-                    "unique": "false",
-                    "reference_floats": "false",
-                    "sys_replace_on_upgrade": "false",
-                    "choice": "0",
-                    "dependent": "",
-                    "table_reference": "false",
-                    "dynamic_creation": "false",
-                    "sys_created_on": "2016-02-02 13:32:57",
-                    "dynamic_ref_qual": "",
-                    "sizeclass": "",
-                    "sys_updated_by": "system",
-                    "sys_package": "",
-                    "name": "cmdb_ci_directory_ha",
-                    "reference_qual": "",
-                    "widget": "",
-                    "use_reference_qualifier": "simple",
-                    "read_roles": "",
-                    "sys_name": "",
-                    "sys_id": "00041b424f11120011ff22d18110c777",
-                    "audit": "false",
-                    "reference_key": "",
-                    "element_reference": "false",
-                    "reference": "",
-                    "reference_cascade_rule": "",
-                    "sys_created_by": "system",
-                    "dynamic_creation_script": "",
-                    "default_value": "",
-                    "sys_class_name": "sys_dictionary",
-                    "attributes": "",
-                    "staged": "false",
-                    "sys_customer_update": "false",
-                    "sys_scope": "",
-                    "comments": ""
-                },
-                {
-                    "max_length": "1024",
-                    "read_only": "false",
-                    "reference_qual_condition": "",
-                    "reference_type": "",
-                    "dependent_on_field": "",
-                    "calculation": "",
-                    "use_dynamic_default": "false",
-                    "sys_policy": "",
-                    "internal_type": {
-                        "link": "https://dev17826.service-now.com/api/now/table/sys_glide_object?name=translated_text",
-                        "value": "translated_text"
-                    },
-                    "spell_check": "false",
-                    "use_dependent_field": "false",
-                    "primary": "false",
-                    "choice_field": "",
-                    "defaultsort": "",
-                    "sys_update_name": "sys_dictionary_sc_ic_question_type_help_text",
-                    "sys_mod_count": "1",
-                    "write_roles": "",
-                    "delete_roles": "",
-                    "element": "help_text",
-                    "mandatory": "false",
-                    "sys_updated_on": "2016-01-27 19:38:02",
-                    "display": "false",
-                    "text_index": "false",
-                    "dynamic_default_value": "",
-                    "active": "true",
-                    "next_element": "",
-                    "foreign_database": "",
-                    "xml_view": "false",
-                    "array": "false",
-                    "virtual": "false",
-                    "choice_table": "",
-                    "column_label": "Help text",
-                    "create_roles": "",
-                    "unique": "false",
-                    "reference_floats": "false",
-                    "sys_replace_on_upgrade": "false",
-                    "choice": "0",
-                    "dependent": "",
-                    "table_reference": "false",
-                    "dynamic_creation": "false",
-                    "sys_created_on": "2016-01-27 19:24:51",
-                    "dynamic_ref_qual": "",
-                    "sizeclass": "",
-                    "sys_updated_by": "system",
-                    "sys_package": {
-                        "link": "https://dev17826.service-now.com/api/now/table/sys_package/8deaa1d04f11120011ff22d18110c72a",
-                        "value": "8deaa1d04f11120011ff22d18110c72a"
-                    },
-                    "name": "sc_ic_question_type",
-                    "reference_qual": "",
-                    "widget": "",
-                    "use_reference_qualifier": "simple",
-                    "read_roles": "",
-                    "sys_name": "Help text",
-                    "sys_id": "000b25d04f11120011ff22d18110c710",
-                    "audit": "false",
-                    "reference_key": "",
-                    "element_reference": "false",
-                    "reference": "",
-                    "reference_cascade_rule": "",
-                    "sys_created_by": "system",
-                    "dynamic_creation_script": "",
-                    "default_value": "",
-                    "sys_class_name": "sys_dictionary",
-                    "attributes": "no_sort_i18n=true,serializer=com.glide.script.TranslatedTextXMLSerializer",
-                    "staged": "false",
-                    "sys_customer_update": "false",
-                    "sys_scope": {
-                        "link": "https://dev17826.service-now.com/api/now/table/sys_scope/global",
-                        "value": "global"
-                    },
-                    "comments": ""
-                }]};
-    }
 }
 
 NowService.NowFactory.$inject = ['$http', 'AuthService'];

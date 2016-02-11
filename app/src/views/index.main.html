@@ -2,9 +2,9 @@
     <div class="col-md-3 sidebar">
         <ul class="nav nav-sidebar">
             <div ng-repeat="app in applications">
-                <li class="app-header"><h2>Application</h2></li>
+                <li class="app-header"><h2>{{app.name}}</h2></li>
                 <abn-tree
-                        tree-data       = "treeData"
+                        tree-data       = "app.tablesTree"
                         icon-leaf       = "fa fa-angle-right"
                         icon-expand     = "fa fa-table"
                         icon-collapse   = "fa fa-table"
