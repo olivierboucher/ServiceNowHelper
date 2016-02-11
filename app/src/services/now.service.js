@@ -10,6 +10,61 @@ class NowService {
         }
     }
 
+	getApplicationTableTree() {
+		return new Promise((resolve, reject) => {
+			this.getApplicationsList()
+				.then((applicationResponse) => {
+					console.log(applicationResponse);
+					let applications = applicationResponse.result;
+
+					applications.forEach((app) => {
+						console.log(app);
+						this.getTablesForApplication(app.scope)
+							.then((tablesResponse) => {
+								console.log(tablesResponse);
+								let tables = tablesResponse.result;
+								app.tablesTree = [];
+
+								tables.forEach((table, tableIndex) => {
+									console.log(table);
+									app.tablesTree[tableIndex] = {
+										//label: table.label, TODO: Find real property
+										children: []
+									};
+
+									this.getColumnsForTable(table.name)
+										.then((columnsResponse) => {
+											let columns = columnsResponse.result;
+											columns.forEach((column) => {
+												app.tablesTree[tableIndex].children.push({
+													//label: column.label TODO: Find real property
+												});
+											});
+
+										})
+										.catch((error) => {
+											console.log(error);
+											reject(error);
+										})
+
+								})
+							})
+							.catch((error) => {
+								console.log(error);
+								reject(error);
+							})
+
+					});
+
+					resolve(applications);
+				})
+				.catch((error) => {
+					console.log(error);
+					reject(error);
+				})
+		});
+	}
+
     getApplicationsList() {
         let config = this.auth.getAuthenticatedConfig();
         config.method = 'GET';
