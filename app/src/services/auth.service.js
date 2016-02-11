@@ -49,6 +49,13 @@ class AuthService {
         }
     }
 
+    disconnect() {
+        localStorage.removeItem('instanceUrl');
+        localStorage.removeItem('authentication');
+        this.authentication = null;
+        this.instanceUrl = null;
+    }
+
     isLoggedIn() {
         return new Promise((resolve, reject)=> {
             if(this.authentication === null ||
