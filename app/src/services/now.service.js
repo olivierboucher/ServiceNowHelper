@@ -10,57 +10,53 @@ class NowService {
         }
     }
 
-	getApplicationTableTree() {
-		return new Promise((resolve, reject) => {
-			this.getApplicationsList()
-				.then((applicationResponse) => {
-					let applications = applicationResponse.data.result;
-					applications.forEach((app) => {
-						this.getTablesForApplication(app.scope)
-							.then((tablesResponse) => {
-								let tables = tablesResponse.data.result;
-								app.tablesTree = [];
+    populateApplicationTableTree(scope) {
+        this._getApplicationsList()
+            .then((applicationResponse) => {
+                let applications = applicationResponse.data.result;
+                applications.forEach((app, appIndex) => {
+                    this._getTablesForApplication(app.scope)
+                        .then((tablesResponse) => {
+                            let tables = tablesResponse.data.result;
+                            app.tablesTree = [];
 
-								tables.forEach((table, tableIndex) => {
-									app.tablesTree[tableIndex] = {
-										label: table.label,
-                                        clipboardData: table.name,
-										children: []
-									};
+                            tables.forEach((table, tableIndex) => {
+                                app.tablesTree[tableIndex] = {
+                                    label: table.label,
+                                    clipboardData: table.name,
+                                    children: []
+                                };
 
-									this.getColumnsForTable(table.name)
-										.then((columnsResponse) => {
-											let columns = columnsResponse.data.result;
-											columns
-                                                .filter((x) => x.column_label != '')
-                                                .forEach((column) => {
-												    app.tablesTree[tableIndex].children.push({
-													    label: column.column_label,
-                                                        clipboardData: column.element
-												});
-											});
-										})
-										.catch((error) => {
-											console.log(error);
-											reject(error);
-										})
-								})
-							})
-							.catch((error) => {
-								console.log(error);
-								reject(error);
-							})
-					});
-					resolve(applications);
-				})
-				.catch((error) => {
-					console.log(error);
-					reject(error);
-				})
-		});
-	}
+                                this._getColumnsForTable(table.name)
+                                    .then((columnsResponse) => {
+                                        let columns = columnsResponse.data.result;
+                                        columns
+                                            .filter((x) => x.column_label != '')
+                                            .forEach((column) => {
+                                                app.tablesTree[tableIndex].children.push({
+                                                    label: column.column_label,
+                                                    clipboardData: column.element
+                                                });
+                                            });
 
-    getApplicationsList() {
+                                        if (appIndex == applications.length - 1 && tableIndex == tables.length - 1) {
+                                            scope.loadingApplications = false;
+                                            scope.applications = applications;
+                                        }
+                                    })
+                                    .catch((error) => {
+                                        console.log(error);
+                                    })
+                            })
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        })
+                });
+            })
+    }
+
+    _getApplicationsList() {
         let config = this.auth.getAuthenticatedConfig();
         config.method = 'GET';
         config.url += '/api/now/table/sys_app';
@@ -68,7 +64,7 @@ class NowService {
         return this.$http(config)
     }
 
-    getTablesForApplication(scope) {
+    _getTablesForApplication(scope) {
         let config = this.auth.getAuthenticatedConfig();
         config.method = 'GET';
         config.url += '/api/now/table/sys_db_object';
@@ -79,7 +75,7 @@ class NowService {
         return this.$http(config);
     }
 
-    getColumnsForTable(table) {
+    _getColumnsForTable(table) {
         let config = this.auth.getAuthenticatedConfig();
         config.method = 'GET';
         config.url += '/api/now/table/sys_dictionary';
@@ -95,82 +91,19 @@ class NowService {
         config.method = 'GET';
         config.url += '/api/now/table/syslog';
         config.params = {
-            'sysparm_query': 'GOTOmessageSTARTSWITH' + startsWith
+            'sysparm_query': 'sys_created_on>javascript:gs.minutesAgoStart(30)^messageSTARTSWITH' + startsWith
         };
 
-        return this.$http(config);
+        return new Promise((resolve, reject) => {
+            this.$http(config)
+                .then((response) => {
+                    resolve(response.data.result);
+                })
+                .catch((error) => {
+                    reject(error);
+                })
+        })
     }
-
-
-    GetLogs() {
-        return {
-            "result": [
-                {
-                    "message": "Create extension tables for syslog_transaction",
-                    "level": "0",
-                    "source": "*** Script",
-                    "sys_class_name": "syslog",
-                    "sys_id": "38fb61144f11120011ff22d18110c788",
-                    "sys_created_on": "2016-01-27 19:29:00",
-                    "sys_created_by": "system"
-                },
-                {
-                    "message": "Going to create extensions: [syslog_transaction:null]",
-                    "level": "0",
-                    "source": "*** Script",
-                    "sys_class_name": "syslog",
-                    "sys_id": "78fb61144f11120011ff22d18110c788",
-                    "sys_created_on": "2016-01-27 19:29:00",
-                    "sys_created_by": "system"
-                },
-                {
-                    "message": "Create extension tables for syslog_transaction",
-                    "level": "0",
-                    "source": "*** Script",
-                    "sys_class_name": "syslog",
-                    "sys_id": "55fb61144f11120011ff22d18110c79d",
-                    "sys_created_on": "2016-01-27 19:29:02",
-                    "sys_created_by": "system"
-                },
-                {
-                    "message": "Going to create extensions: [syslog_transaction:null]",
-                    "level": "0",
-                    "source": "*** Script",
-                    "sys_class_name": "syslog",
-                    "sys_id": "95fb61144f11120011ff22d18110c79d",
-                    "sys_created_on": "2016-01-27 19:29:02",
-                    "sys_created_by": "system"
-                },
-                {
-                    "message": "Create extension tables for syslog_transaction",
-                    "level": "0",
-                    "source": "*** Script",
-                    "sys_class_name": "syslog",
-                    "sys_id": "61fb61144f11120011ff22d18110c7b2",
-                    "sys_created_on": "2016-01-27 19:29:03",
-                    "sys_created_by": "system"
-                },
-                {
-                    "message": "Going to create extensions: [syslog_transaction:null]",
-                    "level": "0",
-                    "source": "*** Script",
-                    "sys_class_name": "syslog",
-                    "sys_id": "a1fb61144f11120011ff22d18110c7b2",
-                    "sys_created_on": "2016-01-27 19:29:03",
-                    "sys_created_by": "system"
-                },
-                {
-                    "message": "Create extension tables for syslog_transaction",
-                    "level": "0",
-                    "source": "*** Script",
-                    "sys_class_name": "syslog",
-                    "sys_id": "35fb61144f11120011ff22d18110c7d3",
-                    "sys_created_on": "2016-01-27 19:29:04",
-                    "sys_created_by": "system"
-                }]
-        };
-    }
-
 }
 
 NowService.NowFactory.$inject = ['$http', 'AuthService'];

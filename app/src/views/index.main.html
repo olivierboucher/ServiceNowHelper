@@ -1,7 +1,14 @@
 <div class="row">
     <div class="col-md-3 sidebar">
         <ul class="nav nav-sidebar">
-            <div ng-repeat="app in applications">
+            <div class="application-loading" ng-show="loadingApplications">
+                <div class="spinner">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                </div>
+            </div>
+            <div ng-show="!loadingApplications" ng-repeat="app in applications">
                 <li class="app-header"><h2>{{app.name}}</h2></li>
                 <abn-tree
                         tree-data       = "app.tablesTree"

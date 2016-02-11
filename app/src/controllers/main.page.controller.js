@@ -4,17 +4,23 @@ class MainPageController{
 
     constructor($scope, NowService) {
         this.serviceNow = new NowService();
-        $scope.logs = this.serviceNow.GetLogs().result;
-        this.serviceNow.getApplicationTableTree()
-            .then((applications) => {
-                console.log(applications);
-                $scope.applications = applications;
+
+        //NOTE(Olivier): To avoid loading errors
+        $scope.applications = [];
+        $scope.loadingApplications = true;
+
+        this.serviceNow.populateApplicationTableTree($scope);
+
+        this.serviceNow.getLogsStartingWith('')
+            .then((logs) => {
+                console.log(logs);
+                $scope.logs = logs;
             })
             .catch((error) => {
                 console.log(error);
             });
+
         $scope.onTreeElementSelect = (branch) => {
-            console.log(branch);
             ClipboardHelper.copyToClipboard(branch.clipboardData);
         }
     }
