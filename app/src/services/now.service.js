@@ -24,6 +24,7 @@ class NowService {
 								tables.forEach((table, tableIndex) => {
 									app.tablesTree[tableIndex] = {
 										label: table.label,
+                                        clipboardData: table.name,
 										children: []
 									};
 
@@ -33,9 +34,9 @@ class NowService {
 											columns
                                                 .filter((x) => x.column_label != '')
                                                 .forEach((column) => {
-                                                    console.log(column);
 												    app.tablesTree[tableIndex].children.push({
-													label: column.column_label //+ ' - ' + column.element
+													    label: column.column_label,
+                                                        clipboardData: column.element
 												});
 											});
 										})

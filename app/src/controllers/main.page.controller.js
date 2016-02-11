@@ -1,3 +1,5 @@
+import ClipboardHelper from '../utilities/clipboard';
+
 class MainPageController{
 
     constructor($scope, NowService) {
@@ -10,7 +12,11 @@ class MainPageController{
             })
             .catch((error) => {
                 console.log(error);
-            })
+            });
+        $scope.onTreeElementSelect = (branch) => {
+            console.log(branch);
+            ClipboardHelper.copyToClipboard(branch.clipboardData);
+        }
     }
 }
 
