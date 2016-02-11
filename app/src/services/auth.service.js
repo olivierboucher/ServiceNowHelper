@@ -27,9 +27,11 @@ class AuthService {
     }
 
     storeCredentials(credentials) {
-        this.credentials = credentials;
+        let auth = btoa(credentials.account + ':' + credentials.password);
+        this.authentication = auth;
+        this.instanceUrl = credentials.instanceUrl;
         localStorage.setItem('instanceUrl', credentials.instanceUrl);
-        localStorage.setItem('authentication', btoa(credentials.account + ':' + credentials.password));
+        localStorage.setItem('authentication', auth);
     }
 
     isLoggedIn() {

@@ -1,7 +1,15 @@
 <div class="login-container">
     <div class="container">
         <div class="dashboard-icon"><img style="max-width: 300px;" src="images/service-now.png" /></div>
-        <form class="form-signin" ng-submit="validateCredentials()">
+
+        <div class="loading" ng-show="isLoading">
+            <div class="spinner">
+                <div class="dot1"></div>
+                <div class="dot2"></div>
+            </div>
+        </div>
+
+        <form ng-show="!isLoading" class="form-signin" ng-submit="validateCredentials()">
             <label for="inputInstance" class="sr-only">Instance URL</label>
             <input ng-model="instanceUrl" type="text" id="inputInstance" class="form-control" placeholder="Instance URL" required autofocus>
 
