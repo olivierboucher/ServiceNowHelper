@@ -2,6 +2,8 @@ class AuthService {
 
     constructor($http) {
         this.$http = $http;
+        this.authentication = localStorage.getItem('authentication');
+        this.instanceUrl = localStorage.getItem('instanceUrl');
     }
 
     static AuthFactory($http) {
@@ -10,7 +12,27 @@ class AuthService {
         }
     }
 
-    IsLoggedIn() {
+    makeSampleHttpRequest(credentials) {
+        let config = {
+            method: 'GET',
+            url: credentials.instanceUrl + '/api/now/pa/scorecards',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + btoa(credentials.account + ':' + credentials.password)
+            }
+        };
+
+        return this.$http(config);
+    }
+
+    storeCredentials(credentials) {
+        this.credentials = credentials;
+        localStorage.setItem('instanceUrl', credentials.instanceUrl);
+        localStorage.setItem('authentication', btoa(credentials.account + ':' + credentials.password));
+    }
+
+    isLoggedIn() {
         return new Promise((resolve, reject)=> {
            reject(AuthService.UNAUTHORIZED);
         });

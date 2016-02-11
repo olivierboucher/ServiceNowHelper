@@ -10,7 +10,7 @@ export default function Routing($routeProvider) {
             template: IndexMain,
             controller:'MainPageController',
             /*resolve: {
-                access: ["AuthService", (AuthService) => new AuthService().IsLoggedIn() ]
+                access: ["AuthService", (AuthService) => new AuthService().isLoggedIn() ]
             }*/
         })
         .when('/login', {
