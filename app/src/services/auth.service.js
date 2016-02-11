@@ -34,9 +34,30 @@ class AuthService {
         localStorage.setItem('authentication', auth);
     }
 
+    getAuthenticatedConfig() {
+        if(!this.isLoggedIn()){
+            return null;
+        }
+
+        return {
+            url: this.instanceUrl,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + this.authentication
+            }
+        }
+    }
+
     isLoggedIn() {
         return new Promise((resolve, reject)=> {
-           reject(AuthService.UNAUTHORIZED);
+            if(this.authentication === null ||
+               this.authentication === undefined ||
+               typeof this.authentication !== 'string'){
+
+                return reject(AuthService.UNAUTHORIZED);
+            }
+            resolve(true);
         });
     }
 }
