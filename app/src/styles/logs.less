@@ -1,14 +1,36 @@
 .logs-container {
   padding-right: 0;
   padding-left: 10px;
+
+  ul {
+    padding-right: 25px;
+    padding-left: 25px;
+  }
+
+  input[type="text"] {
+    position: relative;
+    background-color: #434A54;
+    border: none;
+    border-bottom: solid 2px #c9c9c9;
+    transition: border 0.3s;
+    outline: none;
+    color: #DA4453;
+    font-weight: 200;
+  }
+  input[type="text"]:focus,
+  input[type="text"].focus {
+    border-bottom: solid 2px #DA4453;
+  }
 }
 
 .logs-header {
+  height: 42px;
   margin-bottom: 15px;
   padding:5px;
-  background-color: #7F8C8D;
+  background-color: #434A54;
   color: #ECF0F1;
   h2 {
+    font-size: 25px;
     margin-top: 0;
     margin-bottom: 0;
     margin-right: 10px;
@@ -18,4 +40,9 @@
 
 .log-entry {
   margin-bottom: 10px;
+  list-style: none;
+  color: #E6E9ED;
+  background-color: #434A54;
+  padding: 10px;
+  border-radius: 5px;
 }

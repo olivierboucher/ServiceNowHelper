@@ -97,7 +97,13 @@ class NowService {
         return new Promise((resolve, reject) => {
             this.$http(config)
                 .then((response) => {
-                    resolve(response.data.result);
+                    let offset = new Date().getTimezoneOffset() / 60;
+                    resolve(response.data.result.map((x) => {
+                        let millis = new Date(x.sys_created_on).getTime();
+                        let convert = millis - (offset * 60 * 60 * 1000);
+                        x.sys_created_on = new Date(convert);
+                        return x;
+                    }));
                 })
                 .catch((error) => {
                     reject(error);

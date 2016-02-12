@@ -24,14 +24,13 @@
 
         <div class="logs-header">
             <h2>Logs</h2>
-            filter:
+            filter: <input type="text" ng-model="logsFilter.message">
         </div>
 
         <ul>
-            <li class="log-entry" ng-repeat="log in logs">
-                <h4 style="margin-bottom: 0" class="list-group-item-heading">{{log.message}}</h4>
-
-                <p class="list-group-item-text">{{log.sys_created_on}}</p>
+            <li class="log-entry" ng-repeat="log in logs | filter:logsFilter | orderBy:'-sys_created_on'">
+                <span style="color:#AAB2BD">{{log.sys_created_on | date: 'dd/MM/yy @ HH:mm:ss'}}</span>
+                <p style="margin-bottom: 0" class="list-group-item-heading">{{log.message}}</p>
             </li>
         </ul>
 
