@@ -16,6 +16,7 @@ so I created my personal helper app.
 
 ## TODO
 
+- Add an icon next to column names to identify type.
 - Detect JSON in logs and display them using a navigable tree. [With this plugin](https://github.com/mohsen1/json-formatter)
 - Animations
 - UI adjustments
