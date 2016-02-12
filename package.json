@@ -4,7 +4,7 @@
   "description": "Helper for ServiceNow development",
   "main": "main.js",
   "scripts": {
-    "start": "npm run buildClient && electron dist/main.js",
+    "start": "npm run buildClient && electron main.js",
     "buildClient": "cd app && npm run build",
     "installClient": "cd app && npm install",
     "postinstall": "npm run installClient",
