@@ -1,6 +1,12 @@
 # ServiceNowHelper
 
-I identified multiple problems while developing for ServiceNow so I created my personal helper app.
+I identified multiple problems while developing for ServiceNow,
+
+- Having to remember all tables names.
+- Debugging with Geneva.
+- Navigating between the script definition and the log page.
+
+so I created my personal helper app.
 
 ## Features
 
