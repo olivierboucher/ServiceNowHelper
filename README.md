@@ -33,6 +33,12 @@ so I created my personal helper app.
 ```
 > npm run start
 ```
+
+## Running with live reload
+
+```
+> npm run watch
+```
 ## Screenshots
 
 ![Login screenshot](http://i.imgur.com/sPA4uHO.png)
