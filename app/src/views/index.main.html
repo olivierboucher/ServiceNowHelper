@@ -11,16 +11,32 @@
             <div ng-show="!loadingApplications" ng-repeat="app in applications">
                 <li class="app-header"><h2>{{app.name}}</h2></li>
                 <abn-tree
-                        tree-data       = "app.tablesTree"
-                        icon-leaf       = "fa fa-angle-right"
-                        icon-expand     = "fa fa-table"
-                        icon-collapse   = "fa fa-table"
-                        on-select       = "onTreeElementSelect(branch)"
+                        tree-data="app.tablesTree"
+                        icon-leaf="fa fa-angle-right"
+                        icon-expand="fa fa-table"
+                        icon-collapse="fa fa-table"
+                        on-select="onTreeElementSelect(branch)"
                 ></abn-tree>
             </div>
         </ul>
     </div>
-    <div class="col-md-offset-3 col-md-9 logs-container">
+    <div class="col-md-offset-3 col-md-3 tree-detail">
+        <table class="table tree-detail-table">
+            <thead>
+            <tr>
+                <th>Attribute</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="(key,data) in selected">
+                <th>{{key}}</th>
+                <th>{{data}}</th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-offset-6 col-md-6 logs-container">
 
         <div class="logs-header">
             <h2>Logs</h2>
@@ -30,6 +46,7 @@
         <ul>
             <li class="log-entry" ng-repeat="log in logs | filter:logsFilter | orderBy:'-sys_created_on'">
                 <span style="color:#AAB2BD">{{log.sys_created_on | date: 'dd/MM/yy @ HH:mm:ss'}}</span>
+
                 <p style="margin-bottom: 0" class="list-group-item-heading">{{log.message}}</p>
             </li>
         </ul>

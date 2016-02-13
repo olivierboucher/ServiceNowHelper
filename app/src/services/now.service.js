@@ -24,7 +24,8 @@ class NowService {
                                 app.tablesTree[tableIndex] = {
                                     label: table.label,
                                     clipboardData: table.name,
-                                    children: []
+                                    children: [],
+                                    data:table
                                 };
 
                                 this._getColumnsForTable(table.name)
@@ -35,7 +36,8 @@ class NowService {
                                             .forEach((column) => {
                                                 app.tablesTree[tableIndex].children.push({
                                                     label: column.column_label,
-                                                    clipboardData: column.element
+                                                    clipboardData: column.element,
+                                                    data: column
                                                 });
                                             });
 
