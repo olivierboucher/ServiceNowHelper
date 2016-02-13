@@ -1,5 +1,6 @@
 var electron = require('electron');
 var client = require('electron-connect').client;
+var argv = require('yargs').argv;
 
 const application = electron.app;
 const BrowserWindow = electron.BrowserWindow;
@@ -17,7 +18,9 @@ function createMainWindow() {
 
 application.on('ready', function() {
     createMainWindow();
-    client.create(mainWindow);
+	if(argv.mode == undefined || argv.mode != 'prod') {
+		client.create(mainWindow);
+	}
 });
 
 application.on('window-all-closed', function(){

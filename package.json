@@ -4,7 +4,7 @@
   "description": "Helper for ServiceNow development",
   "main": "main.js",
   "scripts": {
-    "start": "npm run buildClient && electron main.js",
+    "start": "npm run buildClient && electron main.js --mode=prod",
     "buildClient": "cd app && npm run build",
     "installClient": "cd app && npm install",
     "postinstall": "npm run installClient",
@@ -25,6 +25,7 @@
     "gulp-sourcemaps": "^1.6.0"
   },
   "dependencies": {
-    "electron-connect": "^0.3.7"
+    "electron-connect": "^0.3.7",
+    "yargs": "^3.32.0"
   }
 }
